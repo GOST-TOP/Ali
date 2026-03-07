@@ -19,6 +19,8 @@
   --color-gray-light: #f0f5fa;
   --color-gray-medium: #6b7c93;
   --color-gray-dark: #4a5568;
+  --color-error: #dc3545;
+  --color-success: #28a745;
   
   --shadow-xs: 0 2px 8px -4px rgba(0, 20, 40, 0.1);
   --shadow-sm: 0 5px 15px -8px rgba(0, 20, 40, 0.15);
@@ -199,6 +201,10 @@ ul { list-style: none; }
   border: 2px solid transparent;
 }
 
+.btn-block {
+  width: 100%;
+}
+
 .btn-login {
   background: transparent;
   border-color: var(--color-gold);
@@ -253,7 +259,128 @@ ul { list-style: none; }
 
 .btn-lg { padding: 14px 32px; font-size: 1.1rem; }
 
-/* ===== 5. قسم البطل ===== */
+/* ===== 5. النماذج المنبثقة ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 450px;
+  z-index: 2001;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md);
+  border-bottom: 1px solid rgba(201, 161, 75, 0.2);
+}
+
+.modal-header h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-blue-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-header h3 i { color: var(--color-gold); }
+
+.modal-close {
+  font-size: 1.2rem;
+  color: var(--color-gray-medium);
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--color-error);
+}
+
+.modal-body {
+  padding: var(--space-lg);
+}
+
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+  color: var(--color-blue-deep);
+}
+
+.form-group label i {
+  color: var(--color-gold);
+  margin-left: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid rgba(201, 161, 75, 0.2);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(201, 161, 75, 0.2);
+}
+
+.modal-footer {
+  text-align: center;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(201, 161, 75, 0.2);
+}
+
+.modal-footer a {
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+.modal-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== 6. قسم البطل ===== */
 .hero-section {
   position: relative;
   background: linear-gradient(145deg, #d9d2c0 0%, #e5decc 50%, #f0e9d5 100%);
@@ -403,15 +530,13 @@ ul { list-style: none; }
 
 .hero-description i { color: var(--color-gold); font-size: 1.3rem; margin-top: 3px; }
 
-/* تم إزالة .hero-stats */
-
 .hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 
 .hero-wave { position: absolute; bottom: 0; left: 0; right: 0; line-height: 0; }
 .hero-wave svg { width: 100%; height: 80px; }
 .hero-wave path { fill: var(--color-white); }
 
-/* ===== 6. قسم المميزات ===== */
+/* ===== 7. قسم المميزات ===== */
 .features-section { background: var(--color-white); padding: var(--space-2xl) 0; }
 
 .section-header { text-align: center; margin-bottom: var(--space-xl); }
@@ -466,7 +591,7 @@ ul { list-style: none; }
 .feature-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--color-blue-deep); margin-bottom: var(--space-xs); }
 .feature-card p { color: var(--color-gray-medium); font-size: 0.95rem; line-height: 1.6; }
 
-/* ===== 7. البطاقات الرئيسية ===== */
+/* ===== 8. البطاقات الرئيسية ===== */
 .main-content { padding: var(--space-xl) 0; }
 
 .choices-section {
@@ -572,7 +697,7 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-/* ===== 8. الصفحات ===== */
+/* ===== 9. الصفحات ===== */
 .page-section { padding: var(--space-xl) 0; min-height: 60vh; }
 .page-container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-md); }
 .page-header { text-align: center; margin-bottom: var(--space-xl); }
@@ -606,7 +731,7 @@ ul { list-style: none; }
 .page-title i { color: var(--color-gold); }
 .page-description { color: var(--color-gray-medium); font-size: 1.1rem; }
 
-/* ===== 9. شبكة الكتب ===== */
+/* ===== 10. شبكة الكتب ===== */
 .books-filter { display: flex; justify-content: center; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-lg); }
 
 .filter-btn {
@@ -676,7 +801,7 @@ ul { list-style: none; }
 
 .book-download:hover { background: transparent; border: 2px solid var(--color-gold); color: var(--color-gold); transform: scale(1.05); }
 
-/* ===== 10. مراحل الفيديوهات ===== */
+/* ===== 11. مراحل الفيديوهات ===== */
 .stage-selector { display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-xl); }
 
 .stage-btn {
@@ -723,9 +848,7 @@ ul { list-style: none; }
 .empty-state h3 { font-size: 1.5rem; font-weight: 800; color: var(--color-blue-deep); margin-bottom: var(--space-xs); }
 .empty-state p { color: var(--color-gray-medium); font-size: 1rem; }
 
-/* تم إزالة قسم التواصل */
-
-/* ===== 11. التذييل ===== */
+/* ===== 12. التذييل ===== */
 .main-footer {
   background: linear-gradient(135deg, var(--color-blue-deep), var(--color-blue-medium));
   color: var(--color-white);
@@ -737,20 +860,20 @@ ul { list-style: none; }
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-md);
-  display: flex; /* تغيير من grid إلى flex لتوسط المحتوى */
-  justify-content: center; /* توسيط المحتوى */
+  display: flex;
+  justify-content: center;
   margin-bottom: var(--space-lg);
 }
 
 .footer-section {
-  text-align: center; /* توسيط النصوص */
-  max-width: 600px; /* تحديد عرض أقصى للقسم */
+  text-align: center;
+  max-width: 600px;
 }
 
 .footer-logo {
   display: flex;
   align-items: center;
-  justify-content: center; /* توسيط الشعار */
+  justify-content: center;
   gap: var(--space-xs);
   font-family: var(--font-secondary);
   font-size: 1.5rem;
@@ -770,7 +893,7 @@ ul { list-style: none; }
 .footer-social {
   display: flex;
   gap: var(--space-xs);
-  justify-content: center; /* توسيط الأيقونات */
+  justify-content: center;
 }
 
 .footer-social a {
@@ -792,8 +915,6 @@ ul { list-style: none; }
   transform: translateY(-3px);
 }
 
-/* تم إزالة .footer-links */
-
 .footer-bottom {
   text-align: center;
   padding-top: var(--space-lg);
@@ -802,7 +923,7 @@ ul { list-style: none; }
 
 .footer-bottom p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
 
-/* ===== 12. زر الصعود للأعلى ===== */
+/* ===== 13. زر الصعود للأعلى ===== */
 .scroll-top {
   position: fixed;
   bottom: 30px;
@@ -826,7 +947,7 @@ ul { list-style: none; }
 .scroll-top.visible { opacity: 1; visibility: visible; }
 .scroll-top:hover { background: var(--color-blue-deep); color: var(--color-gold); transform: translateY(-5px); }
 
-/* ===== 13. القائمة الجانبية للجوال ===== */
+/* ===== 14. القائمة الجانبية للجوال ===== */
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -882,7 +1003,7 @@ ul { list-style: none; }
 
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
-/* ===== 14. التجاوب ===== */
+/* ===== 15. التجاوب ===== */
 @media (max-width: 1024px) {
   .hero-container { grid-template-columns: 1fr; text-align: center; }
   .hero-content { text-align: center; }
@@ -915,7 +1036,7 @@ ul { list-style: none; }
   .features-grid { grid-template-columns: 1fr; }
 }
 
-/* ===== 15. إمكانية الوصول ===== */
+/* ===== 16. إمكانية الوصول ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

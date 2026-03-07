@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Ali Elngar</title>
-    <link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -26,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   
   <!-- ملف الـ CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -54,11 +43,11 @@
     </nav>
     
     <div class="auth-section" id="authSection">
-      <a href="login.html" class="btn btn-login">
+      <a href="#" onclick="showLoginForm(); return false;" class="btn btn-login">
         <i class="fas fa-sign-in-alt"></i>
         <span>تسجيل الدخول</span>
       </a>
-      <a href="signup.html" class="btn btn-signup">
+      <a href="#" onclick="showSignupForm(); return false;" class="btn btn-signup">
         <i class="fas fa-user-plus"></i>
         <span>حساب جديد</span>
       </a>
@@ -82,6 +71,65 @@
   </div>
 </header>
 
+<!-- ===== نماذج تسجيل الدخول وحساب جديد ===== -->
+<div class="modal-overlay" id="modalOverlay" style="display:none;" onclick="closeModal()"></div>
+
+<!-- نموذج تسجيل الدخول -->
+<div class="modal" id="loginModal" style="display:none;">
+  <div class="modal-header">
+    <h3><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h3>
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="modal-body">
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+        <input type="email" id="loginEmail" placeholder="أدخل بريدك الإلكتروني" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+        <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">تسجيل الدخول</button>
+    </form>
+    <div class="modal-footer">
+      <p>ليس لديك حساب؟ <a href="#" onclick="switchToSignup()">إنشاء حساب جديد</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- نموذج إنشاء حساب جديد -->
+<div class="modal" id="signupModal" style="display:none;">
+  <div class="modal-header">
+    <h3><i class="fas fa-user-plus"></i> إنشاء حساب جديد</h3>
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="modal-body">
+    <form id="signupForm" onsubmit="handleSignup(event)">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+        <input type="text" id="signupName" placeholder="أدخل اسمك الكامل" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+        <input type="email" id="signupEmail" placeholder="أدخل بريدك الإلكتروني" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+        <input type="password" id="signupPassword" placeholder="أدخل كلمة المرور" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
+        <input type="password" id="signupConfirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">إنشاء حساب</button>
+    </form>
+    <div class="modal-footer">
+      <p>لديك حساب بالفعل؟ <a href="#" onclick="switchToLogin()">تسجيل الدخول</a></p>
+    </div>
+  </div>
+</div>
+
 <!-- ===== القائمة الجانبية للجوال ===== -->
 <div class="mobile-sidebar" id="mobileSidebar">
   <div class="sidebar-header">
@@ -94,8 +142,8 @@
     <a href="#" onclick="goHome(); closeMobileMenu(); return false;"><i class="fas fa-home"></i> الرئيسية</a>
     <a href="#" onclick="showPage('books'); closeMobileMenu(); return false;"><i class="fas fa-book"></i> الكتب</a>
     <a href="#" onclick="showPage('videos'); closeMobileMenu(); return false;"><i class="fas fa-video"></i> الفيديوهات</a>
-    <a href="login.html"><i class="fas fa-sign-in-alt"></i> الدخول</a>
-    <a href="signup.html"><i class="fas fa-user-plus"></i> حساب جديد</a>
+    <a href="#" onclick="showLoginForm(); closeMobileMenu(); return false;"><i class="fas fa-sign-in-alt"></i> الدخول</a>
+    <a href="#" onclick="showSignupForm(); closeMobileMenu(); return false;"><i class="fas fa-user-plus"></i> حساب جديد</a>
   </nav>
 </div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -134,8 +182,6 @@
         منهج تعليمي متطور يجمع بين الأصالة والحداثة، 
         يضمن للطالب التفوق والفهم العميق للغة الإنجليزية
       </p>
-      
-      <!-- تم إزالة الإحصائيات هنا -->
       
       <div class="hero-actions">
         <a href="#" onclick="showPage('books'); return false;" class="btn btn-primary btn-lg">
@@ -294,7 +340,7 @@
       </button>
     </div>
     
-    <!-- صفحات المراحل فارغة كما طلبت -->
+    <!-- صفحات المراحل فارغة -->
     <div class="stage-content" id="primary-stage" hidden>
       <div class="empty-state">
         <i class="fas fa-video-slash"></i>
@@ -321,8 +367,6 @@
   </div>
 </section>
 
-<!-- تم إزالة قسم تواصل هنا -->
-
 <!-- ===== التذييل ===== -->
 <footer class="main-footer">
   <div class="footer-container">
@@ -343,8 +387,6 @@
         <a href="#" aria-label="تيليجرام"><i class="fab fa-telegram"></i></a>
       </div>
     </div>
-    
-    <!-- تم إزالة الأعمدة الأخرى (روابط سريعة، مراحل، معلومات) -->
   </div>
   
   <div class="footer-bottom">
@@ -360,9 +402,4 @@
 <!-- ملف الجافاسكريبت -->
 <script src="script.js"></script>
 </body>
-</html>
-    <script  src="./script.js"></script>
-
-  </body>
-  
 </html>

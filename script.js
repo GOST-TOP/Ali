@@ -20,6 +20,38 @@ function initApp() {
   console.log('✅ تم تحميل التطبيق بنجاح');
 }
 
+// ===== إدارة النماذج =====
+function showLoginForm() {
+  closeModal();
+  document.getElementById('loginModal').style.display = 'block';
+  document.getElementById('modalOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function showSignupForm() {
+  closeModal();
+  document.getElementById('signupModal').style.display = 'block';
+  document.getElementById('modalOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('loginModal').style.display = 'none';
+  document.getElementById('signupModal').style.display = 'none';
+  document.getElementById('modalOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function switchToSignup() {
+  document.getElementById('loginModal').style.display = 'none';
+  document.getElementById('signupModal').style.display = 'block';
+}
+
+function switchToLogin() {
+  document.getElementById('signupModal').style.display = 'none';
+  document.getElementById('loginModal').style.display = 'block';
+}
+
 // ===== إدارة المستخدمين =====
 function loadUserFromStorage() {
   try {
@@ -39,6 +71,51 @@ function saveUserToStorage(user) {
   const { password, ...safeUser } = user;
   localStorage.setItem('currentUser', JSON.stringify(safeUser));
   updateAuthUI();
+  closeModal();
+  showToast(`مرحباً ${user.name} 👋`, 'success');
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  // محاكاة تسجيل الدخول
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+  
+  if (user) {
+    saveUserToStorage(user);
+    document.getElementById('loginForm').reset();
+  } else {
+    showToast('❌ البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
+  }
+}
+
+function handleSignup(event) {
+  event.preventDefault();
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  const confirmPassword = document.getElementById('signupConfirmPassword').value;
+  
+  if (password !== confirmPassword) {
+    showToast('❌ كلمة المرور غير متطابقة', 'error');
+    return;
+  }
+  
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  
+  if (users.some(u => u.email === email)) {
+    showToast('❌ البريد الإلكتروني موجود بالفعل', 'error');
+    return;
+  }
+  
+  const newUser = { name, email, password };
+  users.push(newUser);
+  localStorage.setItem('users', JSON.stringify(users));
+  saveUserToStorage(newUser);
+  document.getElementById('signupForm').reset();
 }
 
 function logout() {
@@ -146,27 +223,40 @@ window.closeMobileMenu = closeMobileMenu;
 
 // ===== الكتب =====
 function generateBooksData() {
-  const levels = [
-    { id: 'primary', name: 'ابتدائي', count: 4 },
-    { id: 'middle', name: 'إعدادي', count: 4 },
-    { id: 'high', name: 'ثانوي', count: 4 }
+  const bookTitles = [
+    // المرحلة الابتدائية
+    { title: 'اللغة الإنجليزية - الصف الأول الابتدائي', level: 'primary' },
+    { title: 'اللغة الإنجليزية - الصف الثاني الابتدائي', level: 'primary' },
+    { title: 'اللغة الإنجليزية - الصف الثالث الابتدائي', level: 'primary' },
+    { title: 'اللغة الإنجليزية - الصف الرابع الابتدائي', level: 'primary' },
+    { title: 'اللغة الإنجليزية - الصف الخامس الابتدائي', level: 'primary' },
+    { title: 'اللغة الإنجليزية - الصف السادس الابتدائي', level: 'primary' },
+    
+    // المرحلة الإعدادية
+    { title: 'اللغة الإنجليزية - الصف الأول الإعدادي', level: 'middle' },
+    { title: 'اللغة الإنجليزية - الصف الثاني الإعدادي', level: 'middle' },
+    { title: 'اللغة الإنجليزية - الصف الثالث الإعدادي', level: 'middle' },
+    
+    // المرحلة الثانوية
+    { title: 'اللغة الإنجليزية - الصف الأول الثانوي', level: 'high' },
+    { title: 'اللغة الإنجليزية - الصف الثاني الثانوي', level: 'high' },
+    { title: 'اللغة الإنجليزية - الصف الثالث الثانوي', level: 'high' }
   ];
   
   let books = [];
   let bookId = 1;
   
-  levels.forEach(level => {
-    for (let i = 1; i <= level.count; i++) {
-      books.push({
-        id: bookId++,
-        title: `كتاب اللغة الإنجليزية - الجزء ${i}`,
-        subtitle: `المرحلة ${level.name}`,
-        level: level.id,
-        cover: `${bookId-1}.jpg`,
-        pages: Math.floor(Math.random() * 100) + 50,
-        size: (Math.random() * 10 + 5).toFixed(1) + ' MB'
-      });
-    }
+  bookTitles.forEach((book, index) => {
+    books.push({
+      id: bookId++,
+      title: book.title,
+      subtitle: book.level === 'primary' ? 'المرحلة الابتدائية' : 
+                book.level === 'middle' ? 'المرحلة الإعدادية' : 'المرحلة الثانوية',
+      level: book.level,
+      cover: `${index + 1}.jpg`,
+      pages: Math.floor(Math.random() * 100) + 150,
+      size: (Math.random() * 15 + 10).toFixed(1) + ' MB'
+    });
   });
   
   return books;
@@ -198,8 +288,9 @@ function renderBooks(filter = 'all') {
 function downloadBook(bookId) {
   const book = App.books.find(b => b.id === bookId);
   if (book) {
-    showToast(`جاري تحميل: ${book.title}...`, 'info');
-    setTimeout(() => showToast('تم بدء التحميل ✓', 'success'), 1000);
+    // رابط التحميل فارغ حالياً
+    showToast(`📚 ${book.title} - الرابط سيتوفر قريباً`, 'info');
+    setTimeout(() => showToast('جاري تجهيز رابط التحميل', 'info'), 1500);
   }
 }
 
@@ -268,19 +359,33 @@ function setupEventListeners() {
   if (logoutBtn) logoutBtn.addEventListener('click', logout);
   setupMobileMenu();
   setupBookFilters();
+  
+  // إغلاق النماذج عند الضغط على Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
 }
 
+// ===== تصدير الدوال إلى النطاق العام =====
 window.showPage = showPage;
 window.showStage = showStage;
 window.goHome = goHome;
 window.downloadBook = downloadBook;
+window.showLoginForm = showLoginForm;
+window.showSignupForm = showSignupForm;
+window.closeModal = closeModal;
+window.switchToLogin = switchToLogin;
+window.switchToSignup = switchToSignup;
+window.handleLogin = handleLogin;
+window.handleSignup = handleSignup;
+window.closeMobileMenu = closeMobileMenu;
 
 console.log(`
 ╔════════════════════════════════════════╗
 ║   موقع الأستاذ علي النجار             ║
 ║   للإشارة باللغة الإنجليزية           ║
 ╠════════════════════════════════════════╣
-║   الإصدار: 2.1 (محدث)                 ║
+║   الإصدار: 3.0 (كامل)                 ║
 ║   الحالة: جاهز                        ║
 ╚════════════════════════════════════════╝
 `);
