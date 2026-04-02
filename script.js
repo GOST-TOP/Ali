@@ -120,8 +120,8 @@ function generateBooksData() {
     { id: 9, title: 'اللغة الإنجليزية - الصف الثالث الإعدادي', level: 'middle', cover: '9.jpg', pages: 240, size: '56.24 MB', downloadUrl: 'https://drive.google.com/file/d/1h7SqmiY5_Ao4oo5nrekIlDocEaaAK6o-/view?usp=sharing' },
     
     // المرحلة الثانوية - 3 كتب
-    { id: 10, title: 'اللغة الإنجليزية - الصف الأول الثانوي', level: 'high', cover: '10.jpg', pages: 280, size: '86.27 MB', downloadUrl: 'https://example.com/book10.pdf' },
-    { id: 11, title: 'اللغة الإنجليزية - الصف الثاني الثانوي', level: 'high', cover: '11.jpg', pages: 295, size: '91.05 MB', downloadUrl: 'https://example.com/book11.pdf' },
+    { id: 10, title: 'اللغة الإنجليزية - الصف الأول الثانوي', level: 'high', cover: '10.jpg', pages: 280, size: '86.27 MB', downloadUrl: 'https://drive.google.com/file/d/1Eucrvs-yefsldNsik758FhIt3WduEerE/view?usp=drive_link' },
+    { id: 11, title: 'اللغة الإنجليزية - الصف الثاني الثانوي', level: 'high', cover: '11.jpg', pages: 295, size: '91.05 MB', downloadUrl: 'https://drive.google.com/file/d/1FmRPjxj8nh30qZ3YSxCJoHxgyU3B-z6G/view?usp=sharing' },
     { id: 12, title: 'اللغة الإنجليزية - الصف الثالث الثانوي', level: 'high', cover: '12.jpg', pages: 320, size: '100 MB', downloadUrl: 'https://example.com/book12.pdf' }
   ];
   
